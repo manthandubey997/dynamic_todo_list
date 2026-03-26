@@ -1,0 +1,542 @@
+/* ============================================================
+   Project : TaskFlow — Dynamic To-Do List
+   File    : style.css
+   Theme   : Deep dark with neon-lime accents — focused & sharp
+   ============================================================ */
+
+/* ---------- CSS CUSTOM PROPERTIES (Variables) ---------- */
+:root {
+  /* Colors */
+  --bg:          #0d0d0f;
+  --surface:     #161618;
+  --surface-2:   #1e1e21;
+  --surface-3:   #252529;
+  --border:      #2a2a2f;
+  --border-hover:#3a3a42;
+  --accent:      #734fbb;      /* neon lime — the signature color */
+  --accent-dim:  #3824a8;
+  --accent-glow: rgba(181,242,61,0.15);
+  --danger:      #ff5555;
+  --danger-dim:  rgba(255,85,85,0.12);
+  --warning:     #ffb347;
+  --text-1:      #f0f0f0;      /* primary text */
+  --text-2:      #9898a6;      /* secondary / muted */
+  --text-3:      #5a5a68;      /* placeholder / very muted */
+  --done-line:   #4a4a55;
+
+  /* Typography */
+  --font:        'Outfit', sans-serif;
+  --mono:        'JetBrains Mono', monospace;
+
+  /* Spacing & Shape */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --shadow:      0 8px 32px rgba(0,0,0,0.5);
+  --shadow-accent: 0 0 24px rgba(181,242,61,0.18);
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- BASE ---------- */
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- BACKGROUND DECORATIONS ---------- */
+.bg-circle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Large glowing circle — top left */
+.bg-circle-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(181,242,61,0.06) 0%, transparent 70%);
+  top: -150px;
+  left: -150px;
+}
+
+/* Smaller accent circle — bottom right */
+.bg-circle-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(181,242,61,0.04) 0%, transparent 70%);
+  bottom: 0;
+  right: -80px;
+}
+
+/* Subtle dot-grid pattern */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+}
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 2.8rem 1.5rem 1rem;
+  text-align: center;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Checkmark badge */
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--accent);
+  color: #0d0d0f;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.logo-text {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-1);
+}
+
+.header-tagline {
+  color: var(--text-2);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* ---------- MAIN CONTENT ---------- */
+.main-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  padding: 1.5rem 1.2rem 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ---------- STATS ROW ---------- */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: border-color 0.2s ease;
+}
+
+.stat-box:hover { border-color: var(--border-hover); }
+
+.stat-num {
+  font-family: var(--mono);
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-1);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+}
+
+/* Accent colors for pending & done */
+.stat-pending .stat-num { color: var(--warning); }
+.stat-done    .stat-num { color: var(--accent);  }
+
+/* ---------- INPUT CARD ---------- */
+.input-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.5rem;
+  box-shadow: var(--shadow);
+  transition: border-color 0.25s ease;
+}
+
+.input-card:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow), var(--shadow-accent);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+/* Text input field */
+.task-input {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-1);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.85rem 1.1rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.task-input::placeholder { color: var(--text-3); }
+
+.task-input:focus {
+  border-color: var(--accent);
+  background: var(--surface-3);
+}
+
+/* Add Task button */
+.btn-add {
+  background: var(--accent);
+  color: #0d0d0f;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  background: var(--accent-dim);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(181,242,61,0.3);
+}
+
+.btn-add:active { transform: translateY(0); }
+
+.btn-icon {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Error message */
+.error-msg {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 0.7rem;
+  min-height: 1.1rem;
+  font-weight: 500;
+}
+
+/* ---------- FILTER SECTION ---------- */
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 0.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 4px;
+}
+
+.filter-tab {
+  background: transparent;
+  border: none;
+  border-radius: 99px;
+  color: var(--text-2);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-tab:hover { color: var(--text-1); }
+
+/* Active filter pill */
+.filter-tab.active {
+  background: var(--accent);
+  color: #0d0d0f;
+}
+
+/* Clear done button */
+.btn-clear-done {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--text-2);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-clear-done:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empty-icon  { font-size: 3.5rem; margin-bottom: 0.5rem; }
+.empty-title { font-size: 1.1rem; font-weight: 600; color: var(--text-2); }
+.empty-sub   { font-size: 0.875rem; color: var(--text-3); }
+
+/* Hidden utility class */
+.hidden { display: none !important; }
+
+/* ---------- TASK LIST ---------- */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ---------- TASK ITEM ---------- */
+.task-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  transition: border-color 0.2s ease, background 0.2s ease, opacity 0.3s ease;
+
+  /* Slide-in animation when task is added */
+  animation: taskSlideIn 0.28s ease;
+}
+
+@keyframes taskSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide out animation when task is deleted */
+@keyframes taskSlideOut {
+  from { opacity: 1; transform: translateX(0); max-height: 80px; }
+  to   { opacity: 0; transform: translateX(20px); max-height: 0; padding: 0; margin: 0; }
+}
+
+.task-item.removing {
+  animation: taskSlideOut 0.25s ease forwards;
+}
+
+.task-item:hover { border-color: var(--border-hover); }
+
+/* Left accent stripe on hover */
+.task-item:hover { border-left: 2px solid var(--accent); padding-left: calc(1.1rem - 1px); }
+
+/* Completed task styling */
+.task-item.completed {
+  background: var(--surface-2);
+  opacity: 0.7;
+}
+
+/* ---------- CUSTOM CHECKBOX ---------- */
+.task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid var(--border-hover);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.task-checkbox:hover { border-color: var(--accent); }
+
+/* Checkmark after checking */
+.task-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0d0d0f;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* ---------- TASK TEXT ---------- */
+.task-text {
+  flex: 1;
+  font-size: 0.975rem;
+  font-weight: 500;
+  color: var(--text-1);
+  word-break: break-word;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+
+/* Strike-through completed task text */
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--done-line);
+  color: var(--text-2);
+}
+
+/* ---------- EDIT INPUT (inline editing) ---------- */
+.edit-input {
+  flex: 1;
+  background: var(--surface-3);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.35rem 0.7rem;
+  outline: none;
+  display: none;      /* shown only when editing */
+}
+
+/* ---------- TASK ACTION BUTTONS ---------- */
+.task-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Base style for Edit / Delete / Save buttons */
+.btn-action {
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+/* Edit button */
+.btn-edit:hover {
+  background: rgba(255,179,71,0.12);
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+/* Save button (shown during edit mode) */
+.btn-save {
+  display: none;  /* hidden until editing */
+}
+.btn-save:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Delete button */
+.btn-delete:hover {
+  background: var(--danger-dim);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 1.2rem;
+  color: var(--text-3);
+  font-size: 0.8rem;
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (max 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .logo-text         { font-size: 1.5rem; }
+  .input-row         { flex-direction: column; }
+  .btn-add           { justify-content: center; padding: 0.85rem; }
+  .task-item         { padding: 0.85rem 0.9rem; flex-wrap: wrap; }
+  .task-actions      { width: 100%; justify-content: flex-end; }
+  .filter-section    { flex-direction: column; align-items: flex-start; }
+  .stats-row         { gap: 0.5rem; }
+  .stat-num          { font-size: 1.4rem; }
+}

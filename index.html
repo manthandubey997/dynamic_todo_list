@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow — Dynamic To-Do List</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Clash Display (headings) + Satoshi (body) via CDN fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Background decorative elements -->
+  <div class="bg-circle bg-circle-1"></div>
+  <div class="bg-circle bg-circle-2"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <span class="logo-icon">✓</span>
+        <span class="logo-text">TaskFlow</span>
+      </div>
+      <p class="header-tagline">Your tasks. Your pace. Your day.</p>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main-content">
+
+    <!-- ---- STATS ROW ---- -->
+    <section class="stats-row" aria-label="Task statistics">
+      <div class="stat-box" id="stat-total">
+        <span class="stat-num" id="count-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-box stat-pending" id="stat-pending">
+        <span class="stat-num" id="count-pending">0</span>
+        <span class="stat-label">Pending</span>
+      </div>
+      <div class="stat-box stat-done" id="stat-done">
+        <span class="stat-num" id="count-done">0</span>
+        <span class="stat-label">Done</span>
+      </div>
+    </section>
+
+    <!-- ---- INPUT SECTION ---- -->
+    <section class="input-section" aria-label="Add a new task">
+      <div class="input-card">
+        <div class="input-row">
+          <input
+            type="text"
+            id="task-input"
+            class="task-input"
+            placeholder="What needs to be done?"
+            maxlength="120"
+            autocomplete="off"
+            aria-label="Enter task"
+          />
+          <button id="add-btn" class="btn btn-add" aria-label="Add task">
+            <span class="btn-icon">+</span>
+            <span class="btn-text">Add Task</span>
+          </button>
+        </div>
+        <!-- Error alert shown when user tries to add empty task -->
+        <p id="error-msg" class="error-msg" role="alert" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ---- FILTER TABS ---- -->
+    <section class="filter-section" aria-label="Filter tasks">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="pending">Pending</button>
+        <button class="filter-tab" data-filter="completed">Completed</button>
+      </div>
+      <!-- Clear completed button -->
+      <button id="clear-done-btn" class="btn-clear-done" title="Remove all completed tasks">
+        Clear Done
+      </button>
+    </section>
+
+    <!-- ---- TASK LIST SECTION ---- -->
+    <section class="tasks-section" aria-label="Task list">
+
+      <!-- Empty state shown when no tasks exist -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p class="empty-title">No tasks yet!</p>
+        <p class="empty-sub">Add your first task above to get started.</p>
+      </div>
+
+      <!-- The actual task list — items injected by JavaScript -->
+      <ul id="task-list" class="task-list" role="list" aria-label="Tasks"></ul>
+
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <p>TaskFlow &nbsp;·&nbsp; Dynamic To-Do List Assignment &nbsp;·&nbsp; 2026</p>
+  </footer>
+
+  <!-- JavaScript (loaded last for performance) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
