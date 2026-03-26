@@ -1,20 +1,13 @@
-/* ============================================================
-   Project : TaskFlow — Dynamic To-Do List
-   File    : style.css
-   Theme   : Deep dark with neon-lime accents — focused & sharp
-   ============================================================ */
 
-/* ---------- CSS CUSTOM PROPERTIES (Variables) ---------- */
 :root {
-  /* Colors */
   --bg:          #0d0d0f;
   --surface:     #161618;
   --surface-2:   #1e1e21;
   --surface-3:   #252529;
   --border:      #2a2a2f;
   --border-hover:#3a3a42;
-  --accent:      #734fbb;      /* neon lime — the signature color */
-  --accent-dim:  #3824a8;
+  --accent:      #8e2d43;      /* neon lime — the signature color */
+  --accent-dim:  #9d4172;
   --accent-glow: rgba(181,242,61,0.15);
   --danger:      #ff5555;
   --danger-dim:  rgba(255,85,85,0.12);
@@ -24,11 +17,11 @@
   --text-3:      #5a5a68;      /* placeholder / very muted */
   --done-line:   #4a4a55;
 
-  /* Typography */
+
   --font:        'Outfit', sans-serif;
   --mono:        'JetBrains Mono', monospace;
 
-  /* Spacing & Shape */
+
   --radius-sm:   8px;
   --radius-md:   14px;
   --radius-lg:   20px;
